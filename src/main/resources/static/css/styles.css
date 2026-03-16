@@ -1,0 +1,153 @@
+/* ===========================
+   Global Colors
+   =========================== */
+
+:root {
+    --primary: #332e40;              /*  navbar color */
+    --secondary: #656BAE;
+    --accent-blue: #7384D9;
+    --accent-light-blue: #90C7E0;
+
+    --neutral-light: #EAE4E1;
+    --neutral-medium: #D5C9C5;
+    --neutral-dark: #A1887D;
+
+    --text-dark: #4B7F95;
+    --text-light: #E8E4F7;
+}
+
+/* ===========================
+   Body
+   =========================== */
+
+body {
+    background-color: var(--neutral-light);
+    color: var(--text-dark);
+    font-family: 'Inter', sans-serif;
+}
+
+/* ===========================
+   Navbar (RESTORED)
+   =========================== */
+
+.navbar {
+    background-color: var(--primary) !important;
+}
+
+.navbar-brand {
+    color: var(--text-light) !important;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    color: var(--text-light) !important;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: var(--accent-light-blue) !important;
+}
+
+.navbar .form-control {
+    border-radius: 20px;
+    border: 1px solid var(--secondary);
+}
+
+.navbar .btn {
+    border-radius: 20px;
+    background-color: var(--secondary);
+    border: none;
+}
+
+.navbar .btn:hover {
+    background-color: var(--accent-blue);
+}
+
+/* ===========================
+   Category Bar
+   =========================== */
+
+.category-bar {
+    background-color: var(--neutral-medium);
+    border-radius: 10px;
+    padding: 10px 0;
+}
+
+.category-item {
+    font-weight: 600;
+    color: var(--primary);
+    padding: 0 20px;
+    cursor: pointer;
+}
+
+.category-item:hover {
+    color: var(--accent-blue);
+}
+
+/* ===========================
+   Featured Carousel Image
+   =========================== */
+
+.featured-img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 4px solid var(--primary);
+}
+
+/* ===========================
+   Grid Items
+   =========================== */
+
+.item-box {
+    width: 100%;
+    height: 180px;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: white;
+    border: 2px solid var(--neutral-medium);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s ease;
+}
+
+.item-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+/* ===========================
+   Buttons
+   =========================== */
+
+.btn-primary {
+    background-color: var(--primary);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary);
+}
+
+/* ===========================
+   Responsive
+   =========================== */
+
+@media (max-width: 768px) {
+    .featured-img {
+        height: 160px;
+    }
+
+    .item-box {
+        height: 130px;
+    }
+}
