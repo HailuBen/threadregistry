@@ -1,6 +1,6 @@
 # threadregistry – Product Catalog Web Application
 
-Thread Registry is a Spring Boot web application for browsing, filtering, and viewing clothing products such as shoes, tops, outerwear, and accessories. The application includes full database persistence, product detail pages with images, and a clean UI built with Thymeleaf and custom CSS.
+threadregistry is a Spring Boot web application for browsing, filtering, and viewing clothing products such as shoes, tops, outerwear, and accessories. The application includes full database persistence, product detail pages with images, and a clean UI built with Thymeleaf and custom CSS.
 
 ---
 
