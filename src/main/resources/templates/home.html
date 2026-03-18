@@ -46,11 +46,17 @@
     </div>
 
     <div class="row g-4">
-        <div class="col-md-3"><div class="item-box"><img src="/images/item1.jpg" class="item-img"></div></div>
-        <div class="col-md-3"><div class="item-box"><img src="/images/item2.png" class="item-img"></div></div>
-        <div class="col-md-3"><div class="item-box"><img src="/images/item3.jpg" class="item-img"></div></div>
-        <div class="col-md-3"><div class="item-box"><img src="/images/item4.jpg" class="item-img"></div></div>
+        <div class="col-md-3" th:each="product : ${products}">
+            <div class="item-box">
+                <a th:href="@{/products/{id}(id=${product.id})}">
+                    <img th:src="${product.imageUrl}" class="item-img" th:alt="${product.name}">
+                </a>
+            </div>
+        </div>
     </div>
+
+
+
 
 </div>
 
