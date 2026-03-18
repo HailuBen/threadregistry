@@ -2,7 +2,9 @@ package com.example.demo.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,7 +16,6 @@ public class Product {
     private Long id;
 
     @NotBlank(message = "Product name is required.")
-    @Size(max = 100, message = "Name cannot exceed 100 characters.")
     private String name;
 
     @NotBlank(message = "Category is required.")
@@ -23,90 +24,59 @@ public class Product {
     @NotBlank(message = "Gender is required.")
     private String gender;
 
-    @Size(max = 500, message = "Description cannot exceed 500 characters.")
+    @NotBlank(message = "Condition is required.")
+    private String condition;
+
+    @NotNull(message = "Price is required.")
+    private Double price;
+
+    @Size(max = 500)
     private String description;
 
     @Column(name = "image_url")
     private String imageUrl;
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "brand_id", nullable = false)
+    private Brand brand;
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-
-    @Column(nullable = false)
-    private Long brandId;
-
+    @CreationTimestamp
     private LocalDateTime createdAt;
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-    }
 
     public Product() {}
 
-    public Product(String name, String category, String gender, String description, Long brandId) {
-        this.name = name;
-        this.category = category;
-        this.gender = gender;
-        this.description = description;
-        this.brandId = brandId;
+    // Helper for Thymeleaf
+    public String getBrandName() {
+        return (brand != null) ? brand.getName() : "Unknown Brand";
     }
 
-    public Long getId() {
-        return id;
-    }
+    // GETTERS AND SETTERS (Crucial for Thymeleaf)
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getName() {
-        return name;
-    }
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getGender() { return gender; }
+    public void setGender(String gender) { this.gender = gender; }
 
-    public String getCategory() {
-        return category;
-    }
+    public String getCondition() { return condition; }
+    public void setCondition(String condition) { this.condition = condition; }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
+    public Double getPrice() { return price; }
+    public void setPrice(Double price) { this.price = price; }
 
-    public String getGender() {
-        return gender;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 
-    public String getDescription() {
-        return description;
-    }
+    public Brand getBrand() { return brand; }
+    public void setBrand(Brand brand) { this.brand = brand; }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Long getBrandId() {
-        return brandId;
-    }
-
-    public void setBrandId(Long brandId) {
-        this.brandId = brandId;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+    public LocalDateTime getCreatedAt() { return createdAt; }
 }
