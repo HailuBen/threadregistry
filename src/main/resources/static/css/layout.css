@@ -1,0 +1,46 @@
+/* Carousel Height and Image Fitting */
+.featured-img {
+    height: 500px;
+    object-fit: cover; /* This crops the image to fit without stretching */
+    object-position: center;
+    filter: brightness(0.9);
+}
+
+/* Product Grid Image Containers */
+.item-box {
+    aspect-ratio: 3 / 4; /* Standard fashion photography ratio */
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #eee;
+}
+
+.item-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Shows the whole shoe/shirt without cropping */
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .item-img {
+    transform: scale(1.05); /* Subtle zoom effect */
+}
+
+/* Typography for the 'Premium' look */
+.brand-label {
+    letter-spacing: 0.1rem;
+    font-size: 0.85rem;
+}
+
+.product-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+}
+
+.price-label {
+    font-size: 1rem;
+}
