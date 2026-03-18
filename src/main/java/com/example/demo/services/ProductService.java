@@ -17,6 +17,10 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
+    /**
+     * Saves a product. JPA handles the Brand relationship automatically
+     * as long as the Brand object is attached to the Product entity.
+     */
     public Product save(Product product) {
         return productRepository.save(product);
     }
@@ -26,8 +30,29 @@ public class ProductService {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product ID: " + id));
     }
 
+    /**
+     * Main filter method for the Product List page.
+     * This handles Category, Brand (by ID), and Pagination/Sorting.
+     */
+    public Page<Product> findWithFilters(String category, Long brandId, Pageable pageable) {
+        if (category != null && !category.isEmpty() && brandId != null) {
+            return productRepository.findByCategoryAndBrandBrandId(category, brandId, pageable);
+        } else if (category != null && !category.isEmpty()) {
+            return productRepository.findByCategory(category, pageable);
+        } else if (brandId != null) {
+            return productRepository.findByBrandBrandId(brandId, pageable);
+        }
+        return productRepository.findAll(pageable);
+    }
+
+    // --- Legacy methods maintained for compatibility ---
+
     public Page<Product> findAll(Pageable pageable) {
         return productRepository.findAll(pageable);
+    }
+
+    public List<Product> findAll() {
+        return productRepository.findAll();
     }
 
     public Page<Product> findByCategory(String category, Pageable pageable) {
@@ -41,10 +66,4 @@ public class ProductService {
     public Page<Product> findByCategoryAndGender(String category, String gender, Pageable pageable) {
         return productRepository.findByCategoryAndGender(category, gender, pageable);
     }
-
-
-    public List<Product> findAll() {
-        return productRepository.findAll();
-    }
-
 }

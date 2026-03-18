@@ -1,0 +1,42 @@
+/* ===========================
+   Carousel
+   =========================== */
+.featured-img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 4px solid var(--primary);
+}
+
+/* ===========================
+   Product Cards / Grid
+   =========================== */
+.item-box {
+    width: 100%;
+    height: 250px; /* Increased height for better product display */
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: white;
+    border: 1px solid var(--neutral-medium);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.item-box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+}
+
+.item-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ===========================
+   Responsive
+   =========================== */
+@media (max-width: 768px) {
+    .featured-img { height: 250px; }
+    .item-box { height: 180px; }
+}

@@ -1,63 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>threadregistry – Home</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
-</head>
+<head th:replace="~{fragments/header :: header-assets}"></head>
 <body>
-
-<div th:replace="fragments/navbar :: body"></div>
+<div th:replace="~{fragments/navbar :: body}"></div>
 
 <div class="container mt-4">
-
-    <div class="category-bar d-flex justify-content-between align-items-center p-3 mb-4 shadow-sm">
-        <span class="category-item">Products</span>
-        <span class="category-item">Brands</span>
-        <span class="category-item">Accessories</span>
-        <span class="category-item">Sale</span>
-        <span class="category-item">Clearance</span>
+    <div class="category-bar d-flex justify-content-center gap-4 align-items-center p-2 mb-5 border-bottom">
+        <a class="category-item text-decoration-none" th:href="@{/products(category='Shoes')}">Shoes</a>
+        <a class="category-item text-decoration-none" th:href="@{/products(category='Outerwear')}">Outerwear</a>
+        <a class="category-item text-decoration-none" th:href="@{/products(category='Bottoms')}">Bottoms</a>
+        <a class="category-item text-decoration-none fw-bold text-danger" th:href="@{/products(category='Sale')}">Sale</a>
     </div>
 
-    <div id="featuredCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+    <div id="featuredCarousel" class="carousel slide mb-5 shadow-sm" data-bs-ride="carousel">
         <div class="carousel-inner">
-
             <div class="carousel-item active">
-                <img src="/images/featured-white-shirt.jpg" class="d-block w-100 featured-img">
+                <img src="/images/featured-white-shirt.png" class="d-block mx-auto featured-img" alt="White Shirt">
+                <div class="carousel-caption d-none d-md-block text-start bg-dark bg-opacity-50 p-4 rounded">
+                    <h5 class="text-uppercase fw-bold featured-h5">Spring Essentials</h5>
+                    <p>Discover the latest drops from premium brands.</p>
+                    <a th:href="@{/products}" class="btn btn-light btn-sm">Shop Now</a>
+                </div>
             </div>
-
             <div class="carousel-item">
-                <img src="/images/featured-black-shirt.jpg" class="d-block w-100 featured-img">
+                <img src="/images/featured-black-shirt.png" class="d-block mx-auto featured-img" alt="Black Shirt">
+                <div class="carousel-caption d-none d-md-block text-start bg-dark bg-opacity-50 p-4 rounded">
+                    <h5 class="text-uppercase fw-bold featured-h5">Streetwear Icons</h5>
+                    <p>High-end silhouettes for the modern wardrobe.</p>
+                    <a th:href="@{/products}" class="btn btn-light btn-sm">Explore More</a>
+                </div>
             </div>
-
-            <div class="carousel-item">
-                <img src="/images/featured-gucci-shoes.jpg" class="d-block w-100 featured-img">
-            </div>
-
         </div>
-
         <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
         </button>
-
         <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
         </button>
     </div>
 
+    <h3 class="mb-4 fw-light text-uppercase tracking-widest">New Arrivals</h3>
     <div class="row g-4">
-        <div class="col-md-3" th:each="product : ${products}">
-            <div class="item-box">
-                <a th:href="@{/products/{id}(id=${product.id})}">
-                    <img th:src="${product.imageUrl}" class="item-img" th:alt="${product.name}">
+        <div class="col-6 col-md-4 col-lg-3" th:each="product : ${products}">
+            <div class="product-card">
+                <a th:href="@{/products/{id}(id=${product.id})}" class="text-decoration-none">
+                    <div class="item-box">
+                        <img th:src="${product.imageUrl}" class="item-img" th:alt="${product.name}">
+                        <span class="badge bg-dark position-absolute top-0 end-0 m-2"
+                              th:text="${product.condition}">NEW</span>
+                    </div>
+                    <div class="product-details mt-3 text-dark">
+                        <h6 class="brand-label text-uppercase fw-bold mb-0" th:text="${product.brandName}">BRAND</h6>
+                        <p class="product-label text-muted mb-1" th:text="${product.name}">Name</p>
+                        <p class="price-label fw-bold" th:text="'$' + ${#numbers.formatDecimal(product.price, 1, 2)}">$0.00</p>
+                    </div>
                 </a>
             </div>
         </div>
     </div>
-
-
-
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
