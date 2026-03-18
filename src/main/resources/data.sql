@@ -33,7 +33,7 @@ INSERT INTO products (name, category, gender, condition, price, description, bra
 
 -- Tops & Bottoms
 ('501 Original Jeans', 'Bottoms', 'Men', 'New', 98.00, 'The blueprint for every pair of jeans', 3, '/images/levi.jpg', CURRENT_TIMESTAMP),
-('Acne Studios Face T-Shirt', 'Tops', 'Unisex', 'New', 160.00, 'Organic cotton tee with patch detail', 4, '/images/acne-tee.jpg', CURRENT_TIMESTAMP),
+('Acne Studios Face T-Shirt', 'Tops', 'Unisex', 'New', 160.00, 'Organic cotton tee', 4, '/images/acne-tee.jpg', CURRENT_TIMESTAMP),
 ('Orlebar Brown Ridley', 'Tops', 'Men', 'New', 245.00, 'Tailored linen shirt for summer', 5, '/images/ob-shirt.jpg', CURRENT_TIMESTAMP),
 
 
@@ -41,4 +41,4 @@ INSERT INTO products (name, category, gender, condition, price, description, bra
 ('Acne Studios Scarf', 'Accessories', 'Unisex', 'New', 290.00, 'Large multi-check wool scarf', 4, '/images/acne-scarf.jpg', CURRENT_TIMESTAMP),
 ('Gucci Marmont Belt', 'Accessories', 'Unisex', 'New', 490.00, 'Double G leather belt in black', 7, '/images/gucci-belt.jpg', CURRENT_TIMESTAMP),
 ('Gucci Horsebit Loafers', 'Shoes', 'Men', 'New', 890.00, 'Heritage leather loafers with gold hardware', 7, '/images/gucci-loafers.jpg', CURRENT_TIMESTAMP),
-('Saint Laurent Wyatt Boots', 'Shoes', 'Men', 'New', 1150.00, 'Suede Chelsea boots with stacked heel', 10, '/images/ysl-boots.jpg', CURRENT_TIMESTAMP),
+('Saint Laurent Wyatt Boots', 'Shoes', 'Men', 'New', 1150.00, 'Suede Chelsea boots with stacked heel', 10, '/images/ysl-boots.jpg', CURRENT_TIMESTAMP);
