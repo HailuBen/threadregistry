@@ -11,7 +11,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId;
+    private Long id;
 
     @NotBlank(message = "Product name is required.")
     @Size(max = 100, message = "Name cannot exceed 100 characters.")
@@ -25,6 +25,18 @@ public class Product {
 
     @Size(max = 500, message = "Description cannot exceed 500 characters.")
     private String description;
+
+    @Column(name = "image_url")
+    private String imageUrl;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
 
     @Column(nullable = false)
     private Long brandId;
@@ -46,12 +58,12 @@ public class Product {
         this.brandId = brandId;
     }
 
-    public Long getProductId() {
-        return productId;
+    public Long getId() {
+        return id;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

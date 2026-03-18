@@ -43,7 +43,7 @@ public class ProductController {
         }
 
         productService.save(product);
-        return "redirect:/products/" + product.getProductId();
+        return "redirect:/products/" + product.getId();
     }
 
     @GetMapping("/{id}")
