@@ -32,7 +32,7 @@ public class ProductController {
         return "product-form";
     }
 
-    @PostMapping
+    @PostMapping("/save") // Updated mapping to match your form action
     public String createProduct(@Valid @ModelAttribute("product") Product product,
                                 BindingResult result,
                                 Model model) {
@@ -42,6 +42,8 @@ public class ProductController {
             return "product-form";
         }
 
+        // JPA automatically maps the 'brand.brandId' from the form
+        // to the Brand object in the Product entity.
         productService.save(product);
         return "redirect:/products/" + product.getId();
     }
@@ -50,42 +52,34 @@ public class ProductController {
     public String viewProduct(@PathVariable Long id, Model model) {
         Product product = productService.findById(id);
 
-        // Fetch the brand using the product's brandId
-        var brand = brandService.findById(product.getBrandId());
+        // Since Product now HAS a Brand object, we don't need a separate service call
+        // Unless we want to explicitly pass the 'brand' object to the model
         model.addAttribute("product", product);
-        model.addAttribute("brand", brand);
+        model.addAttribute("brand", product.getBrand());
         return "product-detail";
     }
 
     @GetMapping
     public String listProducts(
             @RequestParam(required = false) String category,
-            @RequestParam(required = false) String gender,
+            @RequestParam(required = false) Long brandId, // Changed from String to Long
             @RequestParam(defaultValue = "name") String sortBy,
             @RequestParam(defaultValue = "0") int page,
             Model model) {
 
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(sortBy).ascending());
+        Pageable pageable = PageRequest.of(page, 12, Sort.by(sortBy).ascending());
 
-        Page<Product> products;
+        // Use the new consolidated filter method from ProductService
+        Page<Product> products = productService.findWithFilters(category, brandId, pageable);
 
-        if (category != null && !category.isEmpty() && gender != null && !gender.isEmpty()) {
-            products = productService.findByCategoryAndGender(category, gender, pageable);
-        } else if (category != null && !category.isEmpty()) {
-            products = productService.findByCategory(category, pageable);
-        } else if (gender != null && !gender.isEmpty()) {
-            products = productService.findByGender(gender, pageable);
-        } else {
-            products = productService.findAll(pageable);
-        }
-
-        model.addAttribute("products", products);
+        model.addAttribute("products", products.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", products.getTotalPages());
         model.addAttribute("category", category);
-        model.addAttribute("gender", gender);
+        model.addAttribute("brandId", brandId);
         model.addAttribute("sortBy", sortBy);
+        model.addAttribute("brands", brandService.findAll()); // For the filter dropdown
 
         return "product-list";
     }
-
-
 }
