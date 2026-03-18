@@ -1,9 +1,31 @@
 /* Carousel Height and Image Fitting */
 .featured-img {
     height: 500px;
-    object-fit: cover; /* This crops the image to fit without stretching */
+    width: 100%;
+
+    object-fit: contain;
     object-position: center;
-    filter: brightness(0.9);
+
+    background-color: #f8f8f8;
+
+    margin: 0 auto;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+/* fix the Invisible Arrows */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    /* This applies a dark filter so white arrows turn black/grey */
+    filter: invert(1) grayscale(100) brightness(0.5);
+}
+
+/* Optional: If 500px is still too tall for your specific images,
+   lower it to 400px to reduce the empty space */
+@media (max-width: 768px) {
+    .featured-img {
+        height: 300px;
+    }
 }
 
 /* Product Grid Image Containers */
