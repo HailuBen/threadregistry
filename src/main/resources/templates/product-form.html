@@ -1,68 +1,77 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Add Product</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
-</head>
+<head th:replace="~{fragments/header :: header-assets}"></head>
 <body>
-
-<div th:replace="fragments/navbar :: body"></div>
+<div th:replace="~{fragments/navbar :: body}"></div>
 
 <div class="container mt-5">
-    <h2>Add a New Product</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-5">
+                    <h2 class="text-uppercase fw-light mb-4">Add New Product</h2>
+                    <hr class="mb-5">
 
-    <form th:action="@{/products}" th:object="${product}" method="post" class="mt-4">
+                    <form th:action="@{/products}" th:object="${product}" method="post">
 
-        <div class="mb-3">
-            <label class="form-label">Name</label>
-            <input th:field="*{name}" class="form-control">
-            <div class="text-danger" th:errors="*{name}"></div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-uppercase">Product Name</label>
+                                <input type="text" th:field="*{name}" class="form-control rounded-0" placeholder="e.g. Classic T-Shirt">
+                                <div class="text-danger small" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-uppercase">Brand</label>
+                                <select th:field="*{brand.brandId}" class="form-select rounded-0">
+                                    <option value="">Select a Brand</option>
+                                    <option th:each="b : ${brands}" th:value="${b.brandId}" th:text="${b.name}"></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-uppercase">Category</label>
+                                <select th:field="*{category}" class="form-select rounded-0">
+                                    <option value="Sneakers">Sneakers</option>
+                                    <option value="Outerwear">Outerwear</option>
+                                    <option value="Bottoms">Bottoms</option>
+                                    <option value="Tops">Tops</option>
+                                    <option value="Accessories">Accessories</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-uppercase">Condition</label>
+                                <select th:field="*{condition}" class="form-select rounded-0">
+                                    <option value="New">New</option>
+                                    <option value="Authenticated">Authenticated</option>
+                                    <option value="Pre-owned">Pre-owned</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-uppercase">Price ($)</label>
+                                <input type="number" step="0.01" th:field="*{price}" class="form-control rounded-0">
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold text-uppercase">Image URL</label>
+                            <input type="text" th:field="*{imageUrl}" class="form-control rounded-0" placeholder="/images/example.jpg">
+                        </div>
+
+                        <div class="mb-5">
+                            <label class="form-label small fw-bold text-uppercase">Description</label>
+                            <textarea th:field="*{description}" class="form-control rounded-0" rows="4"></textarea>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-dark btn-lg rounded-0 text-uppercase">Save Product</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div class="mb-3">
-            <label class="form-label">Category</label>
-            <select th:field="*{category}" class="form-select">
-                <option value="">Select category</option>
-                <option value="Shoes">Shoes</option>
-                <option value="Outerwear">Outerwear</option>
-                <option value="Tops">Tops</option>
-                <option value="Accessories">Accessories</option>
-            </select>
-            <div class="text-danger" th:errors="*{category}"></div>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Gender</label>
-            <select th:field="*{gender}" class="form-select">
-                <option value="">Select gender</option>
-                <option value="Men">Men</option>
-                <option value="Women">Women</option>
-                <option value="Unisex">Unisex</option>
-            </select>
-            <div class="text-danger" th:errors="*{gender}"></div>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Brand</label>
-            <select th:field="*{brandId}" class="form-select">
-                <option value="">Select brand</option>
-                <option th:each="b : ${brands}"
-                        th:value="${b.brandId}"
-                        th:text="${b.name}">
-                </option>
-            </select>
-            <div class="text-danger" th:errors="*{brandId}"></div>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Description</label>
-            <textarea th:field="*{description}" class="form-control"></textarea>
-        </div>
-
-        <button class="btn btn-primary">Save Product</button>
-    </form>
+    </div>
 </div>
-
 </body>
 </html>
