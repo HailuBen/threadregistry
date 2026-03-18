@@ -2,7 +2,7 @@
    Global Variables & Reset
    =========================== */
 :root {
-    --primary: #332e40;
+    --primary: #594a76;
     --secondary: #656BAE;
     --accent-blue: #7384D9;
     --accent-light-blue: #90C7E0;
@@ -11,7 +11,35 @@
     --neutral-dark: #A1887D;
     --text-dark: #4B7F95;
     --text-light: #E8E4F7;
+    --navbar-custom: #332e40;       /*  navbar color */
 }
+
+.custom-navbar {
+    background-color: var(--navbar-custom);          /*  navbar color */
+    border-bottom: 1px solid var(--accent-light-blue);}
+
+.custom-navbar .nav-link {
+    color: var(--text-light);
+    font-weight: 500;}
+
+.custom-navbar .nav-link:hover {
+    color: var(--accent-light-blue);
+}
+
+.custom-navbar .navbar-brand {
+    color: var(--text-light) !important;
+}
+
+.btn-outline-custom {
+    border: 1px solid var(--accent-light-blue);
+    color: var(--text-light);
+}
+.btn-outline-custom:hover {
+    background-color: var(--accent-light-blue);
+    color: var(--primary);
+}
+
+
 
 body {
     background-color: var(--neutral-light);
@@ -27,6 +55,10 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--primary);
+}
+
+.featured-h5{
+    color: white;
 }
 
 .tracking-widest {
