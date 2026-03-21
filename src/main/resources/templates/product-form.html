@@ -12,7 +12,7 @@
                     <h2 class="text-uppercase fw-light mb-4">Add New Product</h2>
                     <hr class="mb-5">
 
-                    <form th:action="@{/products}" th:object="${product}" method="post">
+                    <form th:action="@{/products/save}" th:object="${product}" method="post">
 
                         <div class="row mb-4">
                             <div class="col-md-6">
@@ -26,6 +26,7 @@
                                     <option value="">Select a Brand</option>
                                     <option th:each="b : ${brands}" th:value="${b.brandId}" th:text="${b.name}"></option>
                                 </select>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}"></div>
                             </div>
                         </div>
 
@@ -33,35 +34,55 @@
                             <div class="col-md-4">
                                 <label class="form-label small fw-bold text-uppercase">Category</label>
                                 <select th:field="*{category}" class="form-select rounded-0">
+                                    <option value="">-- Select --</option>
                                     <option value="Shoes">Shoes</option>
                                     <option value="Outerwear">Outerwear</option>
                                     <option value="Bottoms">Bottoms</option>
                                     <option value="Tops">Tops</option>
                                     <option value="Accessories">Accessories</option>
                                 </select>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label small fw-bold text-uppercase">Condition</label>
                                 <select th:field="*{condition}" class="form-select rounded-0">
+                                    <option value="">-- Select --</option>
                                     <option value="New">New</option>
                                     <option value="Authenticated">Authenticated</option>
                                     <option value="Pre-owned">Pre-owned</option>
                                 </select>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('condition')}" th:errors="*{condition}"></div>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label small fw-bold text-uppercase">Price ($)</label>
                                 <input type="number" step="0.01" th:field="*{price}" class="form-control rounded-0">
+                                <div class="text-danger small" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <label class="form-label small fw-bold text-uppercase">Gender</label>
+                                <select th:field="*{gender}" class="form-select rounded-0">
+                                    <option value="">-- Select --</option>
+                                    <option value="Men">Men</option>
+                                    <option value="Women">Women</option>
+                                    <option value="Unisex">Unisex</option>
+                                </select>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></div>
                             </div>
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label small fw-bold text-uppercase">Image URL</label>
+                            <label class="form-label small fw-bold text-uppercase">Image URL (Optional)</label>
                             <input type="text" th:field="*{imageUrl}" class="form-control rounded-0" placeholder="/images/example.jpg">
+                            <div class="text-danger small" th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}"></div>
                         </div>
 
                         <div class="mb-5">
                             <label class="form-label small fw-bold text-uppercase">Description</label>
                             <textarea th:field="*{description}" class="form-control rounded-0" rows="4"></textarea>
+                            <div class="text-danger small" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
                         </div>
 
                         <div class="d-grid">

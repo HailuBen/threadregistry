@@ -1,3 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+/* ===========================
+   Underground Scramble Logo
+   =========================== */
+.navbar-brand.alt-logo {
+    font-family: 'Special Elite', system-ui;
+    color: var(--text-light) !important;
+    font-size: ;
+    letter-spacing: 0.1em;
+    display: inline-block;
+    min-width: 250px; /* Prevents the navbar from shifting while letters scramble */
+    transition: color 0.3s ease;
+}
+
+.navbar-brand.alt-logo:hover {
+    color: var(--accent-light-blue) !important;
+}
+
 /* ===========================
    Global Variables & Reset
    =========================== */
@@ -11,16 +29,109 @@
     --neutral-dark: #A1887D;
     --text-dark: #4B7F95;
     --text-light: #E8E4F7;
-    --navbar-custom: #332e40;       /*  navbar color */
+    --navbar-custom: #332e40;       /* navbar color */
+    --card-bg: #ffffff;             /* default card bg */
+}
+
+[data-theme="dark"] {
+    /* Backgrounds */
+    --neutral-light: #121212;
+    --card-bg: #1e1e1e;
+    --navbar-custom: #1a1721;
+
+    /* Typography - High contrast for readability */
+    --text-dark: #f0f0f0;           /* main paragraph color */
+    --text-light: #ffffff;          /* pure white for emphasis */
+    --primary: #9d8ec0;             /* lightened purple for dark mode headings */
+    --accent-light-blue: #90C7E0;
+}
+
+body {
+    background-color: var(--neutral-light);
+    color: var(--text-dark);
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height: 1.8; /* Increased for better legibility */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ===========================
+   Dark Mode Overrides
+   =========================== */
+/* Global Fix for Headings in Dark Mode */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6,
+[data-theme="dark"] .navbar-brand {
+    color: var(--primary) !important;
+}
+
+/* Ensure all text and links are readable */
+[data-theme="dark"] p,
+[data-theme="dark"] span,
+[data-theme="dark"] li,
+[data-theme="dark"] .nav-link {
+    color: var(--text-dark) !important;
+}
+
+[data-theme="dark"] .custom-navbar .nav-link {
+    color: var(--text-light) !important;
+}
+
+[data-theme="dark"] .custom-navbar .nav-link:hover {
+    color: var(--accent-light-blue) !important;
+}
+
+/* Fix for Inputs in Dark Mode */
+[data-theme="dark"] .form-control {
+    background-color: #2b2b2b;
+    border-color: #444;
+    color: white;
+}
+
+[data-theme="dark"] .form-control::placeholder {
+    color: #888;
+}
+
+/* ===========================
+   Components
+   =========================== */
+.card, .product-container {
+    background-color: var(--card-bg);
+    transition: background-color 0.3s ease;
+}
+
+.form-check-label {
+    cursor: pointer;
+    user-select: none;
+}
+
+#themeToggle {
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#themeToggle:hover {
+    transform: rotate(15deg) scale(1.1);
+}
+
+.text-warning {
+    color: #ffc107 !important;
 }
 
 .custom-navbar {
-    background-color: var(--navbar-custom);          /*  navbar color */
-    border-bottom: 1px solid var(--accent-light-blue);}
+    background-color: var(--navbar-custom);
+    border-bottom: 1px solid var(--accent-light-blue);
+}
 
 .custom-navbar .nav-link {
     color: var(--text-light);
-    font-weight: 500;}
+    font-weight: 500;
+}
 
 .custom-navbar .nav-link:hover {
     color: var(--accent-light-blue);
@@ -34,18 +145,10 @@
     border: 1px solid var(--accent-light-blue);
     color: var(--text-light);
 }
+
 .btn-outline-custom:hover {
     background-color: var(--accent-light-blue);
     color: var(--primary);
-}
-
-
-
-body {
-    background-color: var(--neutral-light);
-    color: var(--text-dark);
-    font-family: 'Inter', -apple-system, sans-serif;
-    line-height: 1.6; /* Enhancement: Better readability */
 }
 
 /* ===========================
@@ -57,8 +160,11 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--primary);
 }
 
-.featured-h5{
-    color: white;
+/* PROBLEM SOLVED: Added specificity and text-shadow for visibility on white images */
+#featuredCarousel .featured-h5,
+[data-theme="dark"] #featuredCarousel .featured-h5 {
+    color: #ffffff !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .tracking-widest {

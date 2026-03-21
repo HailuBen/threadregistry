@@ -27,12 +27,14 @@ public class ProductController {
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("product", new Product());
+        Product product = new Product();
+        product.setBrand(new com.example.demo.models.Brand()); // Ensure brand isn't null
+        model.addAttribute("product", product);
         model.addAttribute("brands", brandService.findAll());
         return "product-form";
     }
 
-    @PostMapping("/save") // Updated mapping to match your form action
+    @PostMapping("/save")
     public String createProduct(@Valid @ModelAttribute("product") Product product,
                                 BindingResult result,
                                 Model model) {
@@ -40,6 +42,11 @@ public class ProductController {
         if (result.hasErrors()) {
             model.addAttribute("brands", brandService.findAll());
             return "product-form";
+        }
+
+        // If image is blank, set it to the default so it doesn't try to load an empty string
+        if (product.getImageUrl() == null || product.getImageUrl().isBlank()) {
+            product.setImageUrl("/images/default-placeholder.png");
         }
 
         // JPA automatically maps the 'brand.brandId' from the form
@@ -67,7 +74,14 @@ public class ProductController {
             @RequestParam(defaultValue = "0") int page,
             Model model) {
 
-        Pageable pageable = PageRequest.of(page, 12, Sort.by(sortBy).ascending());
+//        Pageable pageable = PageRequest.of(page, 12, Sort.by(sortBy).ascending());
+
+        // Logic to handle descending price
+        Sort sort = sortBy.equals("priceDesc")
+                ? Sort.by("price").descending()
+                : Sort.by(sortBy).ascending();
+
+        Pageable pageable = PageRequest.of(page, 12, sort);
 
         // Use the new consolidated filter method from ProductService
         Page<Product> products = productService.findWithFilters(category, brandId, pageable);
