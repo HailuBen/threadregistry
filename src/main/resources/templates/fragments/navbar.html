@@ -8,7 +8,7 @@
 <nav class="navbar navbar-expand-lg py-3 custom-navbar shadow-sm">
     <div class="container-fluid">
 
-        <a class="navbar-brand fw-bold" th:href="@{/}">threadregistry</a>
+        <a id="logo-hacker" class="navbar-brand alt-logo" th:href="@{/}" data-value="threadregistry">threadregistry</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNav" aria-controls="navbarNav"
@@ -47,6 +47,73 @@
                 <button class="btn btn-outline-custom" type="submit">Search</button>
             </form>
 
+            <!--      Dark mode switch   -->
+            <div class="ms-3">
+                <button id="themeToggle" class="btn btn-link nav-link border-0 p-0" type="button">
+                    <i id="themeIcon" class="bi bi-sun-fill fs-4 text-warning"></i>
+                </button>
+            </div>
+            <script>
+                const themeToggle = document.getElementById('themeToggle');
+                const themeIcon = document.getElementById('themeIcon');
+                const htmlElement = document.documentElement;
+
+                function updateIcon(theme) {
+                    // LOGIC:
+                    // If theme is DARK, show the SUN (to go back to light)
+                    // If theme is LIGHT, show the MOON (to go to dark)
+                    if (theme === 'dark') {
+                        themeIcon.classList.replace('bi-moon-stars-fill', 'bi-sun-fill');
+                        themeIcon.classList.replace('text-light', 'text-warning');
+                    } else {
+                        themeIcon.classList.replace('bi-sun-fill', 'bi-moon-stars-fill');
+                        themeIcon.classList.replace('text-warning', 'text-light');
+                    }
+                }
+
+                // Initial load
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                htmlElement.setAttribute('data-theme', savedTheme);
+                updateIcon(savedTheme);
+
+                themeToggle.addEventListener('click', () => {
+                    const isDark = htmlElement.getAttribute('data-theme') === 'dark';
+                    const newTheme = isDark ? 'light' : 'dark';
+
+                    htmlElement.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('theme', newTheme);
+                    updateIcon(newTheme);
+                });
+
+                // LOGO ANIMATION
+                const letters = "abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+                let interval = null;
+
+                document.getElementById("logo-hacker").onmouseover = event => {
+                  let iteration = 0;
+
+                  clearInterval(interval);
+
+                  interval = setInterval(() => {
+                    event.target.innerText = event.target.innerText
+                      .split("")
+                      .map((letter, index) => {
+                        if(index < iteration) {
+                          return event.target.dataset.value[index];
+                        }
+
+                        return letters[Math.floor(Math.random() * 38)]
+                      })
+                      .join("");
+
+                    if(iteration >= event.target.dataset.value.length){
+                      clearInterval(interval);
+                    }
+
+                    iteration += 1 / 4; // Increase this to make it faster, decrease (e.g., 1/10) to make it slower
+                  }, 50); // Speed of the "scramble" in milliseconds
+                }
+            </script>
         </div>
     </div>
 </nav>
