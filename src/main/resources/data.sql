@@ -18,12 +18,12 @@ INSERT INTO brands (name, country, year_founded, description) VALUES
 -- 2. SEED PRODUCTS (20 Total)
 -- ==========================================================
 INSERT INTO products (name, category, gender, condition, price, description, brand_id, image_url, created_at) VALUES
--- Heritage Sneakers
-('Air Jordan 4 Retro', 'Sneakers', 'Men', 'New', 210.00, 'Classic Jordan 4 in Cement Grey', 1, '/images/jordan.png', CURRENT_TIMESTAMP),
-('Ultraboost 22', 'Sneakers', 'Unisex', 'New', 190.00, 'High-performance running technology', 2, '/images/adidas.png', CURRENT_TIMESTAMP),
-('Nike Air Force 1', 'Sneakers', 'Unisex', 'New', 110.00, 'The quintessential white-on-white sneaker', 1, '/images/af1-item2.png', CURRENT_TIMESTAMP),
-('Adidas Gazelle', 'Sneakers', 'Unisex', 'New', 100.00, 'Vintage suede indoor soccer silhouette', 2, '/images/gazelle.png', CURRENT_TIMESTAMP),
-('Balenciaga Speed Trainer', 'Sneakers', 'Unisex', 'Pre-owned', 550.00, 'Iconic sock-style luxury runner', 8, '/images/balenciaga-speed.png', CURRENT_TIMESTAMP),
+-- Heritage Shoes
+('Air Jordan 4 Retro', 'Shoes', 'Men', 'New', 210.00, 'Classic Jordan 4 in Cement Grey', 1, '/images/jordan.png', CURRENT_TIMESTAMP),
+('Ultraboost 22', 'Shoes', 'Unisex', 'New', 190.00, 'High-performance running technology', 2, '/images/adidas.png', CURRENT_TIMESTAMP),
+('Nike Air Force 1', 'Shoes', 'Unisex', 'New', 110.00, 'The quintessential white-on-white sneaker', 1, '/images/af1-item2.png', CURRENT_TIMESTAMP),
+('Adidas Gazelle', 'Shoes', 'Unisex', 'New', 100.00, 'Vintage suede indoor soccer silhouette', 2, '/images/gazelle.png', CURRENT_TIMESTAMP),
+('Balenciaga Speed Trainer', 'Shoes', 'Unisex', 'Pre-owned', 550.00, 'Iconic sock-style luxury runner', 8, '/images/balenciaga-speed.png', CURRENT_TIMESTAMP),
 
 -- Premium Outerwear
 ('Moncler Maya Jacket', 'Outerwear', 'Men', 'New', 1250.00, 'Signature glossy down puffer jacket', 6, '/images/moncler-maya.png', CURRENT_TIMESTAMP),
