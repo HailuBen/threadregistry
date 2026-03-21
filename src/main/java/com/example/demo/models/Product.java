@@ -34,7 +34,7 @@ public class Product {
     private String description;
 
     @Column(name = "image_url")
-    private String imageUrl;
+    private String imageUrl = "/images/default-placeholder.png"; // Set a default value
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "brand_id", nullable = false)
