@@ -33,6 +33,51 @@
     object-fit: cover;
 }
 
+/* --- Pagination & Global Overrides --- */
+
+/* Active Page State */
+.pagination .active .page-link {
+    background-color: var(--primary) !important; /* #332e40 */
+    border-color: var(--primary) !important;
+    color: var(--text-light) !important;
+}
+
+/* Hover States */
+.pagination .page-link:hover {
+    background-color: var(--accent-light-blue); /* #90C7E0 */
+    color: var(--primary) !important;
+}
+
+/* Page Link Default */
+.pagination .page-link {
+    color: var(--text-dark); /* #4B7F95 */
+    background-color: var(--neutral-light); /* #EAE4E1 */
+    border: 1px solid var(--neutral-medium);
+}
+
+/* Disabled State */
+.page-item.disabled .page-link {
+    background-color: var(--neutral-medium);
+    color: var(--neutral-dark);
+    opacity: 0.6;
+}
+
+/* --- Admin Card Tweaks --- */
+.card-header.bg-secondary {
+    background-color: var(--secondary) !important; /* #656BAE */
+}
+
+.card.bg-dark {
+    background-color: var(--primary) !important; /* #332e40 */
+}
+
+/* --- Badge Adjustments --- */
+.badge.bg-info {
+    background-color: var(--accent-blue) !important; /* #7384D9 */
+    color: white;
+}
+
+
 /* ===========================
    Responsive
    =========================== */
@@ -40,3 +85,4 @@
     .featured-img { height: 250px; }
     .item-box { height: 180px; }
 }
+
