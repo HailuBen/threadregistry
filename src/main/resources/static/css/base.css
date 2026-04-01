@@ -16,6 +16,23 @@
     color: var(--accent-light-blue) !important;
 }
 
+
+/* Target both the button and the link-button specifically */
+.btn-outline-custom,
+button.btn-outline-custom,
+a.btn-outline-custom {
+    border-radius: 0 !important; /* Force square corners */
+    display: inline-flex;       /* Ensures vertical alignment matches */
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+/* Ensure the hover state doesn't bring back rounded corners */
+.btn-outline-custom:hover {
+    border-radius: 0 !important;
+}
+
 /* ===========================
    Global Variables & Reset
    =========================== */
