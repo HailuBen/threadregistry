@@ -1,5 +1,20 @@
 /* ===========================
-   Carousel
+   1. SHARED TRANSITIONS & GLOBALS
+   =========================== */
+:root {
+    --standard-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Syncs the height/presence of all major UI blocks */
+.alert, .btn-lg, .form-control-lg, .pagination .page-link {
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centers text in large buttons/alerts */
+}
+
+/* ===========================
+   2. IMAGERY & CARDS
    =========================== */
 .featured-img {
     width: 100%;
@@ -9,17 +24,14 @@
     border: 4px solid var(--primary);
 }
 
-/* ===========================
-   Product Cards / Grid
-   =========================== */
 .item-box {
     width: 100%;
-    height: 250px; /* Increased height for better product display */
-    border-radius: 12px;
+    height: 250px;
+    border-radius: 10px;
     overflow: hidden;
-    background-color: white;
+    background-color: #fff;
     border: 1px solid var(--neutral-medium);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: var(--standard-transition);
 }
 
 .item-box:hover {
@@ -33,56 +45,69 @@
     object-fit: cover;
 }
 
-/* --- Pagination & Global Overrides --- */
+/* ===========================
+   3. NAVIGATION & UI COMPONENTS (Pagination, Badges, Cards)
+   =========================== */
 
-/* Active Page State */
+/* Unified Pagination Style */
+.pagination .page-link {
+    color: var(--text-dark);
+    background-color: var(--neutral-light);
+    border: 1px solid var(--neutral-medium);
+    transition: var(--standard-transition);
+}
+
 .pagination .active .page-link {
-    background-color: var(--primary) !important; /* #332e40 */
+    background-color: var(--primary) !important;
     border-color: var(--primary) !important;
     color: var(--text-light) !important;
 }
 
-/* Hover States */
-.pagination .page-link:hover {
-    background-color: var(--accent-light-blue); /* #90C7E0 */
+.pagination .page-link:hover:not(.active) {
+    background-color: var(--accent-light-blue);
     color: var(--primary) !important;
 }
 
-/* Page Link Default */
-.pagination .page-link {
-    color: var(--text-dark); /* #4B7F95 */
-    background-color: var(--neutral-light); /* #EAE4E1 */
-    border: 1px solid var(--neutral-medium);
-}
-
-/* Disabled State */
-.page-item.disabled .page-link {
-    background-color: var(--neutral-medium);
-    color: var(--neutral-dark);
-    opacity: 0.6;
-}
-
-/* --- Admin Card Tweaks --- */
-.card-header.bg-secondary {
-    background-color: var(--secondary) !important; /* #656BAE */
-}
-
-.card.bg-dark {
-    background-color: var(--primary) !important; /* #332e40 */
-}
-
-/* --- Badge Adjustments --- */
-.badge.bg-info {
-    background-color: var(--accent-blue) !important; /* #7384D9 */
-    color: white;
-}
-
+/* Bootstrap Component Overrides */
+.card-header.bg-secondary { background-color: var(--secondary) !important; }
+.card.bg-dark { background-color: var(--primary) !important; }
+.badge.bg-info { background-color: var(--accent-blue) !important; color: #fff; }
 
 /* ===========================
-   Responsive
+   4. FORMS & AUTHENTICATION
+   =========================== */
+.form-control::placeholder {
+    color: var(--neutral-dark);
+    opacity: 0.8;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.form-control:focus {
+    background-color: var(--neutral-medium) !important;
+    box-shadow: none;
+    border: 1px solid var(--accent-blue);
+}
+
+/* Unified Button Style for Auth */
+.btn-auth, .btn-outline-primary {
+    color: var(--text-dark) !important;
+    border-color: var(--secondary);
+    transition: var(--standard-transition);
+}
+
+.btn-auth:hover, .btn-outline-primary:hover {
+    background-color: var(--primary) !important;
+    color: var(--text-light) !important;
+    border-color: var(--primary);
+}
+
+/* ===========================
+   5. RESPONSIVE
    =========================== */
 @media (max-width: 768px) {
     .featured-img { height: 250px; }
     .item-box { height: 180px; }
+    .alert, .btn-lg, .form-control-lg { min-height: 50px; } /* Slightly smaller for mobile */
 }
-
