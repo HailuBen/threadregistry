@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/header :: header-assets}">
+    <title>Login - threadregistry</title>
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar-content}"></div>
+
+<main class="container py-5">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+
+                <!--     successful logout alert -->
+                <div th:if="${param.logout}" class="alert alert-info border-0 rounded-0 shadow-sm py-3"
+                     style="background-color: var(--accent-light-blue); color: var(--primary);">
+                    You have successfully logged out.
+                </div>
+
+                <!--   error alert   -->
+                <div th:if="${param.error}" class="alert border-0 rounded-0 shadow-sm py-3 mb-3"
+                     style="background-color: var(--error-custom); color: var(--text-light);">
+                    Invalid username or password.
+                </div>
+
+
+                <h2 class="text-uppercase fw-light tracking-widest mb-4 mt-3" style="color: var(--primary);">Sign
+                    In</h2>
+
+                <form th:action="@{/login}" method="post">
+                    <div class="mb-3">
+                        <input type="text" name="username"
+                               class="form-control form-control-lg rounded-0 border-0 shadow-sm py-3"
+                               placeholder="Username" required
+                               style="background-color: var(--neutral-light); color: var(--primary);">
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="password" name="password"
+                               class="form-control form-control-lg rounded-0 border-0 shadow-sm py-3"
+                               placeholder="Password" required
+                               style="background-color: var(--neutral-light); color: var(--primary);">
+                    </div>
+
+                    <button type="submit" class="btn btn-lg w-100 rounded-0 shadow-sm py-3 fw-bold text-uppercase"
+                            style="background-color: var(--primary); color: var(--text-light);">
+                        Sign In
+                    </button>
+                </form>
+
+                <div class="mt-4 text-center">
+                    <p class="small text-muted">New to threadregistry?
+                        <a th:href="@{/register}"
+                           class="text-decoration-none fw-bold"
+                           style="color: var(--secondary);">Register
+                            Here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
