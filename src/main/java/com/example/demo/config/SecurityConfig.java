@@ -3,7 +3,7 @@ package com.example.demo.config;
 import com.example.demo.services.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,41 +27,38 @@ public class SecurityConfig {
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        // Updated to pass userDetailsService into the constructor to fix the 'required types' error
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    }
-
-    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        // 1. Configure the AuthenticationManagerBuilder directly on the http object
+        AuthenticationManagerBuilder authBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+        authBuilder.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
+
+        // 2. Define the security filter chain rules
         http
-                .csrf(csrf -> csrf.disable()) // Rule out CSRF loops for now
-
+                .csrf(csrf -> csrf.disable()) // Rule out CSRF issues for deployment
                 .authorizeHttpRequests(auth -> auth
-                                // Note the inclusion of all CSS files and the favicon path
-                                .requestMatchers("/", "/home", "/about", "/login", "/register", "/css/**", "/images/**", "/js/**", "/favicon.ico", "/fonts/**", "/webjars/**").permitAll()
-                                .requestMatchers("/h2-console/**").permitAll()
-                                // 2. The "Staff Only" Section (Moderators and Admins)
-                                .requestMatchers("/products/new", "/products/edit/**", "/products/delete/**").hasAnyRole("ADMIN", "MODERATOR")
-                                // 3. The "Vault" (Admins Only)
-                                .requestMatchers("/admin/**").hasRole("ADMIN")
-                                .anyRequest().authenticated()
+                        // Publicly accessible paths
+                        .requestMatchers("/", "/home", "/about", "/login", "/register", "/css/**", "/images/**", "/js/**", "/favicon.ico").permitAll()
+                        .requestMatchers("/h2-console/**").permitAll()
+                        // Role-based access
+                        .requestMatchers("/products/new", "/products/edit/**", "/products/delete/**").hasAnyRole("ADMIN", "MODERATOR")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        // Everything else requires authentication
+                        .anyRequest().authenticated()
                 )
-
-                .authenticationProvider(authenticationProvider())
-
+                // Fix for H2 Console frames
                 .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
 
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/", true)
+                        .defaultSuccessUrl("/", false) // Set to false to prevent redirect loops on Render
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )
                 .logout(logout -> logout
+                        .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout=true")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
