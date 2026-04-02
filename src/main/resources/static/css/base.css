@@ -48,6 +48,9 @@ a.btn-outline-custom {
     --text-light: #E8E4F7;
     --navbar-custom: #332e40;       /* navbar color */
     --card-bg: #ffffff;             /* default card bg */
+
+    --error-custom: #9b4c69;
+
 }
 
 [data-theme="dark"] {
