@@ -25,6 +25,7 @@ public class Product {
     private String gender;
 
     @NotBlank(message = "Condition is required.")
+    @Column(name = "`condition`")
     private String condition;
 
     @NotNull(message = "Price is required.")
