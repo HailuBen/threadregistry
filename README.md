@@ -32,7 +32,7 @@ threadregistry is a Spring Boot web application for browsing, filtering, and vie
 ### Database Persistence
 
 - Spring Data JPA
-- H2 database for development
+- H2 database for development, MySQL for QA/production
 - Auto-generated IDs
 - Automatic timestamps using `@PrePersist`
 
@@ -45,7 +45,8 @@ threadregistry is a Spring Boot web application for browsing, filtering, and vie
 - Spring MVC
 - Spring Data JPA
 - Thymeleaf
-- H2 Database
+- H2 Database (dev) / MySQL (QA)
+- Docker & Docker Compose
 - Maven
 - Bootstrap + custom CSS
 
@@ -53,30 +54,67 @@ threadregistry is a Spring Boot web application for browsing, filtering, and vie
 
 ## How to Run the Application
 
-### Prerequisites
+### Option 1 — Docker (QA, MySQL)
 
-- Java 17
-- Maven (or IntelliJ with Maven support)
-
-### Steps
+**Prerequisites:** Docker and Docker Compose installed.
 
 1. Clone the repository:
-   ```bash
+```bash
    git clone https://github.com/HailuBen/threadregistry.git
+```
+2. Start the application:
+```bash
+   docker-compose up --build
+```
+3. Open your browser and visit:
+   http://localhost:8080
+
+To stop: `docker-compose down`  
+To also wipe the database volume: `docker-compose down -v`
+
+### Option 2 — Local Dev (H2)
+
+**Prerequisites:** Java 17, Maven (or IntelliJ with Maven support)
+
+1. Clone the repository:
+```bash
+   git clone https://github.com/HailuBen/threadregistry.git
+```
 2. Open the project in IntelliJ or your preferred IDE
 3. Run the application:
-   ```bash
+```bash
    mvn spring-boot:run
+```
 4. Open your browser and visit:
-http://localhost:8080
+   http://localhost:8080
 
 ---
 
-## Accessing the H2 Database
+## Accessing the H2 Database (Dev only)
 
 Visit the H2 console:
 http://localhost:8080/h2-console
 
-
 Use this JDBC URL:
-jdbc:h2:mem:threadregistrydb
+jdbc:h2:mem:testdb
+
+---
+
+## Environment Variables (Docker)
+
+| Variable | Default | Description |
+|---|---|---|
+| `SPRING_PROFILES_ACTIVE` | `dev` | Set to `qa` for MySQL |
+| `MYSQL_HOST` | `mysql` | MySQL hostname |
+| `MYSQL_DB` | `threadregistry` | Database name |
+| `MYSQL_USER` | `root` | DB username |
+| `MYSQL_PASSWORD` | `secret` | DB password |
+
+---
+
+## Team Contributions
+
+| Member | Contributions |
+|---|---|
+| [Name] | [Contributions] |
+| [Name] | [Contributions] |
