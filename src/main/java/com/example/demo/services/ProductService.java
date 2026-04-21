@@ -25,6 +25,10 @@ public class ProductService {
         return productRepository.save(product);
     }
 
+    public void deleteById(Long id) {
+        productRepository.deleteById(id);
+    }
+
     public Product findById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product ID: " + id));

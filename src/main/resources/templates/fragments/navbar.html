@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <link rel="stylesheet" th:href="@{/css/base.css}">
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg py-3 custom-navbar shadow-sm">
+<nav th:fragment="navbar-content" class="navbar navbar-expand-lg py-3 custom-navbar shadow-sm" >
     <div class="container-fluid">
 
         <a id="logo-hacker" class="navbar-brand alt-logo" th:href="@{/}" data-value="threadregistry">threadregistry</a>
@@ -18,41 +19,69 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
 
+            <!--      dynamicalize      -->
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/products}">Products</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_MODERATOR')">
                     <a class="nav-link" th:href="@{/products/new}">Add Product</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/about}">About</a>
                 </li>
-            </ul>
-
-            <ul class="navbar-nav align-items-center me-3">
-                <li class="nav-item me-3">
-                    <a class="nav-link" href="#">Login</a>
-                </li>
-                <li class="nav-item me-3">
-                    <a class="nav-link" href="#">Saved Items</a>
-                </li>
-                <li class="nav-item me-3">
-                    <a class="nav-link" href="#">Cart</a>
+                <li class="nav-item" sec:authorize="hasAuthority('ROLE_ADMIN')">
+                    <a class="nav-link text-danger fw-bold" th:href="@{/admin/dashboard}">Admin Panel</a>
                 </li>
             </ul>
 
-            <form class="d-flex" role="search">
-                <input class="form-control me-2 rounded-0" type="search" placeholder="Search…" aria-label="Search">
-                <button class="btn btn-outline-custom" type="submit">Search</button>
-            </form>
+            <div class="d-flex align-items-center">
+                <ul class="navbar-nav align-items-center me-3">
+                    <th:block sec:authorize="isAnonymous()">
+                        <li class="nav-item me-2">
+                            <a class="nav-link" th:href="@{/login}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-custom rounded-0 px-3" th:href="@{/register}">Register</a>
+                        </li>
+                    </th:block>
 
-            <!--      Dark mode switch   -->
-            <div class="ms-3">
-                <button id="themeToggle" class="btn btn-link nav-link border-0 p-0" type="button">
-                    <i id="themeIcon" class="bi bi-sun-fill fs-4 text-warning"></i>
-                </button>
+                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle text-custom"></i>
+                            <span sec:authentication="name">User</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end rounded-0 border-0 shadow-sm">
+                            <li><a class="dropdown-item" href="#">Saved Items</a></li>
+                            <li><a class="dropdown-item" href="#">Cart</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <form th:action="@{/logout}" method="post" class="m-0">
+                                    <button type="submit" class="dropdown-item text-danger">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+                <form class="d-flex" role="search" th:action="@{/products}" method="get">
+                    <input class="form-control me-2 rounded-0" type="search" name="query" placeholder="Search…"
+                           aria-label="Search">
+                    <button class="btn btn-outline-custom rounded-0" type="submit">Search</button>
+                </form>
+
+                <!--      Dark mode switch   -->
+                <div class="ms-3">
+                    <button id="themeToggle" class="btn btn-link nav-link border-0 p-0" type="button">
+                        <i id="themeIcon" class="bi bi-sun-fill fs-4 text-warning"></i>
+                    </button>
+                </div>
             </div>
+
             <script>
                 const themeToggle = document.getElementById('themeToggle');
                 const themeIcon = document.getElementById('themeIcon');

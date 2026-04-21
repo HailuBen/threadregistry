@@ -96,4 +96,37 @@ public class ProductController {
 
         return "product-list";
     }
+
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Product product = productService.findById(id);
+        model.addAttribute("product", product);
+        model.addAttribute("brands", brandService.findAll());
+        return "product-form";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updateProduct(@PathVariable Long id,
+                                @Valid @ModelAttribute("product") Product product,
+                                BindingResult result,
+                                Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("brands", brandService.findAll());
+            return "product-form";
+        }
+
+        if (product.getImageUrl() == null || product.getImageUrl().isBlank()) {
+            product.setImageUrl("/images/default-placeholder.png");
+        }
+
+        product.setId(id);
+        productService.save(product);
+        return "redirect:/products/" + id;
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable Long id) {
+        productService.deleteById(id);
+        return "redirect:/products";
+    }
 }
