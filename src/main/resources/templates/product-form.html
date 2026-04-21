@@ -12,7 +12,9 @@
                     <h2 class="text-uppercase fw-light mb-4">Add New Product</h2>
                     <hr class="mb-5">
 
-                    <form th:action="@{/products/save}" th:object="${product}" method="post">
+                    <form th:action="${product.id != null} ? @{/products/edit/{id}(id=${product.id})} : @{/products/save}"
+                          th:object="${product}"
+                          method="post">
 
                         <div class="row mb-4">
                             <div class="col-md-6">
