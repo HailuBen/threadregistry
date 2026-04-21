@@ -7,6 +7,6 @@ RUN mvn clean package -DskipTests
 # Stage 2: Run the application
 FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
-COPY --from=build /target/*.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-Xmx400m", "-Xss512k", "-XX:TieredStopAtLevel=1", "-Dserver.port=${PORT}", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Xmx400m", "-Xss512k", "-XX:TieredStopAtLevel=1", "-jar", "app.jar"]
