@@ -113,11 +113,3 @@ jdbc:h2:mem:testdb
 | `MYSQL_USER` | `root` | DB username |
 | `MYSQL_PASSWORD` | `secret` | DB password |
 
----
-
-## Team Contributions
-
-| Member | Contributions |
-|---|---|
-| [Name] | [Contributions] |
-| [Name] | [Contributions] |
